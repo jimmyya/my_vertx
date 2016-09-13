@@ -5,8 +5,7 @@ import io.vertx.core.Future;
 
 /**
  * Created by CHEN on 2016/9/13.
- * 这是一个继承了AbstractVerticle的类，在Vert.x的世界中，verticle
- * 是一个个单元，继承了AbstractVerticle类，就获得了vertx的通信证
+ * 不使用8080端口
  */
 public class MyFirstVerticle1 extends AbstractVerticle{
 
@@ -27,7 +26,9 @@ public class MyFirstVerticle1 extends AbstractVerticle{
                     r.response().end("<h1>Hello from my first" +
                             "Vert.x 3 application</h1>");
                 })
-                .listen(8080,result->{
+                .listen(
+                        config().getInteger("http.port",8080)
+                        ,result->{
                    if(result.succeeded()) {
                        fut.complete();
                    } else {
